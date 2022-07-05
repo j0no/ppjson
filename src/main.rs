@@ -12,9 +12,11 @@ fn main() {
         .author("j0no")
         .about("print json")
         .get_matches();
-
+    // TODO: Load params from env DEFAULT_JSON_FILE_NAME, DEFAULT_OBJECT_KEY
+    // TODO: Read from params from command to get file path, flattened pattern or style   
     // get pwd
     let mut pwd = current_dir().unwrap();
+
     // get package.json
     pwd.push(DEFAULT_PACKAGE_JSON_NAME);
     let contents = read_to_string(pwd).expect("Something went wrong reading the file");
