@@ -29,5 +29,7 @@ fn main() {
 
     // print package.json scripts
     let pretty_str = to_string_pretty(&formatted_json_parsed).expect("failed ");
+    // println!("{}", DEFAULT_PACKAGE_JSON_NAME);
     print!("{}", pretty_str);
+
 }
