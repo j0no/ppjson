@@ -24,7 +24,7 @@ OPTIONS:
 ### Example
 
 ```bash
-$ pjson package.json scripts
+$ ppjson package.json scripts
 {
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
