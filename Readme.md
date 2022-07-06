@@ -1,4 +1,4 @@
-# ppjson
+# ppjson - please print json
 
 small cli tool to print json file objects
 
