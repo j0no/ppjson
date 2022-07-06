@@ -18,6 +18,18 @@ OPTIONS:
     -t               format as table
     -V, --version    Print version information
 
+
+```
+
+### Example
+
+```bash
+$ pjson package.json scripts
+{
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
 ```
 
 ## Stack
