@@ -105,7 +105,7 @@ fn main() {
                         })
                         .set_preserve_empty_arrays(false)
                         .set_preserve_empty_objects(false)
-                        .flatten(&json[DEFAULT_KEY]).unwrap();
+                        .flatten(&json).unwrap();
   
                     match flattened {
                         Object(flt_obj) =>{ 
