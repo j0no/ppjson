@@ -1,4 +1,4 @@
-use clap::{value_parser, arg, command, ArgAction};
+use clap::{value_parser, arg, command};
 use serde_json::{from_str, to_string_pretty, Value };
 use std::env::current_dir;
 use std::fs::read_to_string;
@@ -43,7 +43,7 @@ fn main() {
     let format_as_tables = matches.contains_id("table");
 
     // get json file content
-    let contents = read_to_string(path_to_file.unwrap()).expect("File doesn't exists");
+    let contents = read_to_string(path_to_file.expect("File not specified")).expect("File doesn't exists");
     let json: Value = from_str(&contents).expect("JSON was not well-formatted");
 
 
