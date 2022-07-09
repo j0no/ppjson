@@ -1,4 +1,4 @@
-use clap::{value_parser, arg, command, ArgAction};
+use clap::{value_parser, arg, command};
 use serde_json::{from_str, to_string_pretty, Value };
 use std::env::current_dir;
 use std::fs::read_to_string;
@@ -7,8 +7,6 @@ use flatten_json_object::ArrayFormatting;
 use flatten_json_object::Flattener;
 use serde_json::Value::{Object, Null, Bool, Number, Array, String as JSONString};
 use std::env;
-static DEFAULT_PACKAGE_JSON_NAME: &str = "package.json";
-static DEFAULT_KEY: &str = "scripts";
 
 fn main() {
     let mut cmd = command!()
@@ -35,11 +33,7 @@ fn main() {
                 Some(pwd)
             }
         }  
-        None => {
-            let mut pwd = current_dir().unwrap();
-            pwd.push(DEFAULT_PACKAGE_JSON_NAME);
-            Some(pwd)
-        }
+        None => None
     };
 
     let key_str = matches
@@ -49,7 +43,7 @@ fn main() {
     let format_as_tables = matches.contains_id("table");
 
     // get json file content
-    let contents = read_to_string(path_to_file.unwrap()).expect("Something went wrong reading the file");
+    let contents = read_to_string(path_to_file.expect("File not specified")).expect("File doesn't exists");
     let json: Value = from_str(&contents).expect("JSON was not well-formatted");
 
 
