@@ -36,13 +36,22 @@ $ ppjson package.json scripts
 
 - Rust
 
-## Build and Install
+## Build
 
 ```bash
 make build
 ```
 
+## Install
+
 ```bash
 make install # sudo if linux
 ```
 
+You can add the following to .zshrc to .bashrc
+
+
+```
+export DEFAULT_JSON_FILE_NAME=package.json
+export DEFAULT_OBJECT_KEY=scripts
+```
