@@ -7,14 +7,15 @@ use flatten_json_object::ArrayFormatting;
 use flatten_json_object::Flattener;
 use serde_json::Value::{Object, Null, Bool, Number, Array, String as JSONString};
 use std::env;
-use tabled::{Tabled};
+use tabled::{Tabled, Table, Style};
 
 
 
 #[derive(Tabled, Debug)]
 struct JsonTable {
     key: String,
-    value: String
+    value: String,
+    value_type: String
 }
 
 fn main() {
@@ -57,26 +58,37 @@ fn main() {
 
 
     if format_as_tables {
-        println!("print as table");
-        // let mut rows : Vec<JsonTable> = Vec::new();
+        let mut rows : Vec<JsonTable> = Vec::new();
     
-        // match &json {
-        //     Object(flt_obj) =>{ 
-        //         // let obj_keys = flt_obj.keys().collect::<Vec<_>>();
-        //         for (key, value) in flt_obj.into_iter() {
-        //             let pretty_str = to_string_pretty(&value).expect("failed");
-        //             rows.push(JsonTable { key: key.to_string(), value: pretty_str.to_string() });
-        //         }
-        //      },
-        //     Null =>{ println!("No keys"); },
-        //     Bool(_) =>{ println!("No keys"); },
-        //     Number(_) =>{ println!("No keys"); },
-        //     Array(_) =>{ println!("No keys"); },
-        //     JSONString(_) =>{ println!("No keys"); }
-        // }
+        match &json {
+            Object(flt_obj) =>{ 
+                // let obj_keys = flt_obj.keys().collect::<Vec<_>>();
+                for (key, value) in flt_obj.into_iter() {
+                   let value_type =  match &value {
+                        Object(_flt_obj) =>{ 
+                           "Object"
+                        },
+                        Null =>{ "Null" },
+                        Bool(_) =>{ "Bool" },
+                        Number(_) =>{ "Number" },
+                        Array(_) =>{ "Array" },
+                        JSONString(_) =>{ "" }
+                    };
 
-        // let table = Table::new(rows).to_string();
-        // println!("{}", table)
+                    let pretty_str = to_string_pretty(&value).expect("failed");
+                    rows.push(JsonTable { key: key.to_string(), value: pretty_str.to_string(), value_type: value_type.to_string() });
+                }
+             },
+            Null =>{ println!("No keys"); },
+            Bool(_) =>{ println!("No keys"); },
+            Number(_) =>{ println!("No keys"); },
+            Array(_) =>{ println!("No keys"); },
+            JSONString(_) =>{ println!("No keys"); }
+        }
+
+        let mut table = Table::new(rows); 
+        table.with(Style::modern());
+        println!("{}", table.to_string())
         
     } else {
         if print_keys {            
