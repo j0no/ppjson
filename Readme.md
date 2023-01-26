@@ -47,3 +47,9 @@ make build
 make install # sudo if linux
 ```
 
+You can add the following to .zshrc or .bashrc to print scripts be deafult for command `pp`
+
+```bash
+alias pp="ppjson package.json scripts"
+```
+
