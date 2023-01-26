@@ -58,34 +58,14 @@ fn main() {
 
 
     if format_as_tables {
-        let mut rows : Vec<JsonTable> = Vec::new();
-    
-        match &json {
-            Object(flt_obj) =>{ 
-                // let obj_keys = flt_obj.keys().collect::<Vec<_>>();
-                for (key, value) in flt_obj.into_iter() {
-                   let value_type =  match &value {
-                        Object(_flt_obj) =>{ 
-                           "Object"
-                        },
-                        Null =>{ "Null" },
-                        Bool(_) =>{ "Bool" },
-                        Number(_) =>{ "Number" },
-                        Array(_) =>{ "Array" },
-                        JSONString(_) =>{ "" }
-                    };
-
-                    let pretty_str = to_string_pretty(&value).expect("failed");
-                    rows.push(JsonTable { key: key.to_string(), value: pretty_str.to_string(), value_type: value_type.to_string() });
-                }
-             },
-            Null =>{ println!("No keys"); },
-            Bool(_) =>{ println!("No keys"); },
-            Number(_) =>{ println!("No keys"); },
-            Array(_) =>{ println!("No keys"); },
-            JSONString(_) =>{ println!("No keys"); }
-        }
-
+        let rows = match key_str {
+            Some(key_name) => {
+                get_rows(&json[key_name])
+            }, 
+            None => {
+                get_rows(&(json))
+            }
+        };
         let mut table = Table::new(rows); 
         table.with(Style::modern());
         println!("{}", table.to_string())
@@ -176,4 +156,35 @@ fn main() {
     }
     
 
+}
+
+fn get_rows(json: &Value) -> Vec<JsonTable> {
+    let mut rows : Vec<JsonTable> = Vec::new();
+    
+    match &json {
+            Object(flt_obj) =>{ 
+                // let obj_keys = flt_obj.keys().collect::<Vec<_>>();
+                for (key, value) in flt_obj.into_iter() {
+                   let value_type =  match &value {
+                        Object(_flt_obj) =>{ 
+                           "Object"
+                        },
+                        Null =>{ "Null" },
+                        Bool(_) =>{ "Bool" },
+                        Number(_) =>{ "Number" },
+                        Array(_) =>{ "Array" },
+                        JSONString(_) =>{ "String" }
+                    };
+
+                    let pretty_str = to_string_pretty(&value).expect("failed");
+                    rows.push(JsonTable { key: key.to_string(), value: pretty_str.to_string(), value_type: value_type.to_string() });
+                }
+             },
+            Null =>{ println!("No keys"); },
+            Bool(_) =>{ println!("No keys"); },
+            Number(_) =>{ println!("No keys"); },
+            Array(_) =>{ println!("No keys"); },
+            JSONString(_) =>{ println!("No keys"); }
+        }
+    rows
 }
