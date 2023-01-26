@@ -35,6 +35,7 @@ $ ppjson package.json scripts
 ## Stack
 
 - Rust
+- [tabled](https://github.com/zhiburt/tabled) for table formatting 
 
 ## Build and Install
 
