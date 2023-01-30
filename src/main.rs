@@ -29,7 +29,7 @@ fn main() {
         .arg(arg!(table: -t "format as table").value_parser(value_parser!(bool)))
         .arg(arg!(print_keys: -k "print keys").value_parser(value_parser!(bool)))
         .arg(
-            arg!(key_delimiter: -d --delimeter <DELIMETER>"set key delimeter")
+            arg!(key_delimiter: -d --delimeter [delimeter] "set key delimeter")
                 .value_parser(value_parser!(String)),
         );
 
