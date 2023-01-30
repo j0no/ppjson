@@ -14,7 +14,7 @@ ARGS:
     <KEY>                key
 
 OPTIONS:
-    -d [<DELIMETER>...]        set key delimeter
+    -d <DELIMETER>        set key delimeter
     -h, --help                 Print help information
     -k                         print keys
     -t                         format as table
