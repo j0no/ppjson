@@ -8,6 +8,7 @@ use std::env;
 use std::env::current_dir;
 use std::fs::read_to_string;
 use std::path::PathBuf;
+use std::str::Split;
 use tabled::{Style, Table, Tabled};
 
 #[derive(Tabled, Debug)]
@@ -105,7 +106,6 @@ fn main() {
         if print_keys {
             match key_str {
                 Some(key_name) => {
-                    
                     let flattened = if key_name.eq(&".".to_string()) {
                         Flattener::new()
                             .set_key_separator(".")
@@ -235,7 +235,19 @@ fn main() {
         }
     }
 }
-
+fn _get_json_value(json: &Value, keys_arr_val: Split<&str>) -> Value {
+    let mut init = false;
+    let mut past_val: &Value = &Null;
+    for val in keys_arr_val.into_iter() {
+        if !init {
+            past_val = &json[val];
+            init = true;
+        } else {
+            past_val = &past_val[val];
+        }
+    }
+    past_val.clone()
+}
 fn get_rows(json: &Value) -> Vec<JsonTable> {
     let mut rows: Vec<JsonTable> = Vec::new();
 
