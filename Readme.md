@@ -7,18 +7,18 @@ small cli tool to print json file objects
 ```bash
 $ ppjson --help
 USAGE:
-    ppjson [OPTIONS] [ARGS]
+    ppjson [OPTIONS] [--] [ARGS]
 
 ARGS:
     <INPUT_JSON_FILE>    a json file
     <KEY>                key
 
 OPTIONS:
-    -h, --help       Print help information
-    -t               format as table
-    -V, --version    Print version information
-
-
+    -d [<DELIMETER>...]        set key delimeter
+    -h, --help                 Print help information
+    -k                         print keys
+    -t                         format as table
+    -V, --version              Print version information
 ```
 
 ### Example
