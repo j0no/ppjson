@@ -14,11 +14,11 @@ ARGS:
     <KEY>                key
 
 OPTIONS:
-    -d <DELIMETER>        set key delimeter
-    -h, --help                 Print help information
-    -k                         print keys
-    -t                         format as table
-    -V, --version              Print version information
+    -d, --delimeter <DELIMETER>    set key delimeter
+    -h, --help                     Print help information
+    -k                             print keys
+    -t                             format as table
+    -V, --version                  Print version information
 ```
 
 ### Example
