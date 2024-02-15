@@ -68,8 +68,14 @@ fn main() {
     let format_as_tables = matches.contains_id("table");
 
     // get json file content
-    let contents =
-        read_to_string(path_to_file.expect("File not specified")).expect("File doesn't exists");
+    let contents = match read_to_string(path_to_file.expect("File not specified")){
+        Ok(_contents) => _contents,
+        Err(_) => {
+            println!("File doesn't exists");
+            return
+        }
+    };
+    
     let json: Value = from_str(&contents).expect("JSON was not well-formatted");
 
     if format_as_tables {
